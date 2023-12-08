@@ -2,8 +2,9 @@
 
 import wordlist
 import utils
+import time
 
-def play():
+def play(guess_timelimit=10):
     word = wordlist.get_word()
     word_completion = "_" * len(word)
     guessed = False
@@ -16,7 +17,12 @@ def play():
     print(word_completion)
 
     while not guessed and tries > 0:
+        starttime = time.time()
         guess = input("Please guess a letter or word: ").upper()
+        used_time = time.time() - starttime
+        if used_time > guess_timelimit:
+            print("Time has run out! Start a new game."
+            continue #skipping the rest of the loop. The player has to start a new game.
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
                 print("You already guessed the letter", guess)
