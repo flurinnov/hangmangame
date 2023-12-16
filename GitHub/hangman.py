@@ -4,6 +4,13 @@ import wordlist
 import utils
 import time
 
+def calculate_score(tries_left, word_length, elapsed_time):
+    max_score = 100
+    time_penalty = round(elapsed_time) * 5  
+    tries_penalty = (7 - tries_left) * 11  
+    score = max_score - time_penalty - tries_penalty
+    return max(0, score)  
+
 def play(guess_timelimit=10):
     word = wordlist.get_word()
     word_completion = "_" * len(word)
@@ -11,10 +18,13 @@ def play(guess_timelimit=10):
     guessed_letters = []
     guessed_words = []
     tries = 6
+    game_over = False
 
     print("Let's play Hangman!")
     print(utils.display_hangman(tries))
     print(word_completion)
+
+    score = None
 
     while not guessed and tries > 0:
         starttime = time.time()
@@ -22,7 +32,7 @@ def play(guess_timelimit=10):
         used_time = time.time() - starttime
         if used_time > guess_timelimit:
             print("Time has run out! Start a new game."
-            continue #skipping the rest of the loop. The player has to start a new game.
+            break #skipping the rest of the loop. The player has to start a new game.
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
                 print("You already guessed the letter", guess)
@@ -55,9 +65,18 @@ def play(guess_timelimit=10):
         print(utils.display_hangman(tries))
         print(word_completion)
 
+    if guessed or tries == 0:
+        game_over = True
+
+    if game_over:
+        print("Game over! Final word:", word)
+        print("Thanks for playing Hangman!")
+    
     if guessed:
-        print("Congrats, you guessed the word! You win!")
-    else:
+        elapsed_time = time.time() - starttime
+        score = calculate_score(tries, len(word), elapsed_time)
+        print("Congrats, you guessed the word! You win! Your score:", score, "/100")
+    if not guessed:
         print("Sorry, you ran out of tries. The word was " + word + ". Maybe next time!")
 
 if __name__ == "__main__":
