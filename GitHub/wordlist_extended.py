@@ -25,3 +25,13 @@ def get_random_word(difficulty, theme):
     if not words:
         raise ValueError("No words available for the selected difficulty and theme.")
     return random.choice(words).upper()
+
+
+def getThemesByDifficulty(difficulty):
+    """ Get available themes for a given difficulty. """
+    themes = word_dict.get(difficulty, {}).keys()
+    return list(themes)
+
+
+
+
