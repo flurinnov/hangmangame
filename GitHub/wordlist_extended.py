@@ -18,7 +18,7 @@ word_dict = {
         "astronomy": ["nebula", "galaxy", "asteroid", "universe", "satellite", "cosmos", "eclipse", "parallax", "quasar", "supernova"]
     }
 }
-
+# Define a function that provides a random word from the wordlist based on difficulty and theme
 def get_random_word(difficulty, theme):
     """ Get a random word based on the chosen difficulty and theme. """
     words = word_dict.get(difficulty, {}).get(theme, [])
@@ -26,7 +26,7 @@ def get_random_word(difficulty, theme):
         raise ValueError("No words available for the selected difficulty and theme.")
     return random.choice(words).upper()
 
-
+# Define a function that provides a theme based on difficulty
 def getThemesByDifficulty(difficulty):
     """ Get available themes for a given difficulty. """
     themes = word_dict.get(difficulty, {}).keys()
