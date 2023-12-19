@@ -1,3 +1,4 @@
+# Defina a function that displays the hangman structure and changes the stage with the amount of tries
 def display_hangman(tries):
     stages = [  # Final state: head, torso, both arms, and both legs
                 """
