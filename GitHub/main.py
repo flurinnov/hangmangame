@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
 import hangman
-
+# Define the main function to start the game
 def main():
     while True:
-        hangman.play()  # Start a game of Hangman
+        hangman.play()  
 
         # Ask the player if they want to play again
         play_again = input("Play Again? (Y/N) ").upper()
